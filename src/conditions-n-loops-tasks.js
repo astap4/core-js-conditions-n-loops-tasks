@@ -193,8 +193,17 @@ function convertNumberToString(numberStr) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  let i = 0;
+  let j = str.length - 1;
+  while (i < j) {
+    if (str[i] !== str[j]) {
+      return false;
+    }
+    i += 1;
+    j -= 1;
+  }
+  return true;
 }
 
 /**
@@ -211,8 +220,13 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === letter) {
+      return i;
+    }
+  }
+  return -1;
 }
 
 /**
@@ -230,8 +244,15 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  let count = 1;
+  let number = num;
+  while (number !== 0) {
+    number = Math.floor(number / 10);
+    if (Math.floor((num / count) % 10) === digit) return true;
+    count *= 10;
+  }
+  return false;
 }
 
 /**
@@ -272,8 +293,46 @@ function getBalanceIndex(/* arr */) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const matrix = [];
+  for (let i = 0; i < size; i += 1) {
+    const row = [];
+    matrix[i] = row;
+  }
+
+  let counter = 1;
+  let firstRow = 0;
+  let firstColumn = 0;
+  let lastRow = size - 1;
+  let lastColumn = size - 1;
+
+  while (firstRow <= lastRow && firstColumn <= lastColumn) {
+    for (let i = firstColumn; i <= lastColumn; i += 1) {
+      matrix[firstRow][i] = counter;
+      counter += 1;
+    }
+    firstRow += 1;
+
+    for (let i = firstRow; i <= lastRow; i += 1) {
+      matrix[i][lastColumn] = counter;
+      counter += 1;
+    }
+    lastColumn -= 1;
+
+    for (let i = lastColumn; i >= firstColumn; i -= 1) {
+      matrix[lastRow][i] = counter;
+      counter += 1;
+    }
+    lastRow -= 1;
+
+    for (let i = lastRow; i >= firstRow; i -= 1) {
+      matrix[i][firstColumn] = counter;
+      counter += 1;
+    }
+    firstColumn += 1;
+  }
+
+  return matrix;
 }
 
 /**
