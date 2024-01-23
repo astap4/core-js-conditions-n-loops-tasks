@@ -268,8 +268,27 @@ function isContainNumber(num, digit) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  const size = arr.length;
+  const currIndex = 1;
+
+  for (let i = currIndex; i <= size - 1; i += 1) {
+    let sum1 = 0;
+    let sum2 = 0;
+
+    for (let j = 0; j < i; j += 1) {
+      sum1 += arr[j];
+    }
+
+    for (let n = i + 1; n < size; n += 1) {
+      sum2 += arr[n];
+    }
+
+    if (sum1 === sum2) {
+      return i;
+    }
+  }
+  return -1;
 }
 
 /**
@@ -350,8 +369,20 @@ function getSpiralMatrix(size) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const cloneMatrix = matrix;
+  const size = matrix.length;
+
+  for (let i = 0; i < Math.floor(size / 2); i += 1) {
+    for (let j = i; j < size - i - 1; j += 1) {
+      const current = cloneMatrix[i][j];
+      cloneMatrix[i][j] = matrix[size - j - 1][i];
+      cloneMatrix[size - j - 1][i] = matrix[size - i - 1][size - j - 1];
+      cloneMatrix[size - i - 1][size - j - 1] = matrix[j][size - i - 1];
+      cloneMatrix[j][size - i - 1] = current;
+    }
+  }
+  return cloneMatrix;
 }
 
 /**
@@ -368,8 +399,18 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  const copy = arr;
+  const { length } = copy;
+  for (let i = 0; i < length; i += 1) {
+    const currentElement = copy[i];
+    let j = i - 1;
+    for (j; j >= 0 && copy[j] > currentElement; j -= 1) {
+      copy[j + 1] = copy[j];
+    }
+    copy[j + 1] = currentElement;
+  }
+  return copy;
 }
 
 /**
@@ -389,8 +430,29 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  let paramStr = str;
+
+  let newStr = '';
+
+  for (let j = 0; j < iterations; j += 1) {
+    if (j !== 0) {
+      paramStr = newStr;
+      newStr = '';
+    }
+    let strStart = '';
+    let strEnd = '';
+
+    for (let i = 0; i < paramStr.length; i += 1) {
+      if (i % 2 === 0) {
+        strStart += paramStr[i];
+      } else {
+        strEnd += paramStr[i];
+      }
+    }
+    newStr = strStart + strEnd;
+  }
+  return newStr;
 }
 
 /**
@@ -412,6 +474,13 @@ function shuffleChar(/* str, iterations */) {
  */
 function getNearestBigger(/* number */) {
   throw new Error('Not implemented');
+  // const digits = [];
+  // let num = number;
+  // while (num > 0) {
+  //   digits.push(num % 10);
+  //   num = Math.floor(num / 10);
+  // }
+  // return digits;
 }
 
 module.exports = {
